@@ -8,7 +8,7 @@ workers_dev = true
 APP_ENV = "production"
 MCP_ROUTE = "/mcp"
 
-# Account-unique IDs verified against the current Worker inventory.
+# Namespace IDs must be unique within this Cloudflare account; verify before deployment.
 [[ratelimits]]
 name = "PREAUTH_RATE_LIMITER"
 namespace_id = "781346201"
@@ -23,7 +23,7 @@ namespace_id = "781346202"
 limit = 300
 period = 60
 
-# Staging is a separate Worker with independent rate-limit namespaces and secrets.
+# Staging is a separate Worker with independent rate-limit namespaces and secrets. Verify all namespace IDs are unique in this account.
 [env.staging]
 name = "crypto-intelligence-mcp-staging"
 workers_dev = true
