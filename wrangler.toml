@@ -1,0 +1,46 @@
+name = "crypto-intelligence-mcp"
+main = "src/index.ts"
+compatibility_date = "2026-10-27"
+compatibility_flags = ["nodejs_compat"]
+workers_dev = true
+
+[vars]
+APP_ENV = "production"
+MCP_ROUTE = "/mcp"
+
+# Approximate per-location controls. Choose namespace IDs unique in your account.
+[[ratelimits]]
+name = "PREAUTH_RATE_LIMITER"
+namespace_id = "91001"
+[ratelimits.simple]
+limit = 120
+period = 60
+
+[[ratelimits]]
+name = "AUTH_RATE_LIMITER"
+namespace_id = "91002"
+[ratelimits.simple]
+limit = 300
+period = 60
+
+# Staging is a separate Worker with independent rate-limit namespaces and secrets.
+[env.staging]
+name = "crypto-intelligence-mcp-staging"
+workers_dev = true
+vars = { APP_ENV = "staging", MCP_ROUTE = "/mcp" }
+
+[[env.staging.ratelimits]]
+name = "PREAUTH_RATE_LIMITER"
+namespace_id = "91003"
+[env.staging.ratelimits.simple]
+limit = 120
+period = 60
+
+[[env.staging.ratelimits]]
+name = "AUTH_RATE_LIMITER"
+namespace_id = "91004"
+[env.staging.ratelimits.simple]
+limit = 300
+period = 60
+
+# Configure secrets using `npx wrangler secret put NAME`; never put secret values here.

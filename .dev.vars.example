@@ -1,0 +1,8 @@
+# Copy to .dev.vars for local development only. Never commit .dev.vars.
+AUTH_TOKEN=replace-with-at-least-32-random-characters
+# Optional paid-provider credentials; omit until a verified adapter is enabled.
+COINGLASS_API_KEY=
+CRYPTOQUANT_API_KEY=
+GLASSNODE_API_KEY=
+FARSIDE_API_KEY=
+MACRO_DATA_API_KEY=
