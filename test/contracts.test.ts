@@ -50,10 +50,12 @@ describe("security baseline", () => {
     expect(source).toContain('"/api/futures/liquidation/history"');
     expect(source).toContain('const interval="4h"');
     expect(source).toContain("PROVIDER_CAPABILITY_UNAVAILABLE");
-    expect(source).toContain("lookback_hours:z.number().int().min(4).max(720).default(24)");
-    expect(source).toContain("const lookbackHours=Math.min(720,Math.max(4,Number(params.lookback_hours||24)))");
+    expect(source).toContain('interval:z.enum(["1m","3m","5m","15m","30m","1h","4h","6h","8h","12h","1d","1w"]).default("4h")');
+    expect(source).toContain("const lookbackHours=Math.min(8760,Math.max(1,Number(params.lookback_hours||24)))");
     expect(source).toContain('binance:"Binance",bybit:"Bybit",okx:"OKX",hyperliquid:"Hyperliquid"');
     expect(source).toContain("start_time:startTime,end_time:endTime");
+    expect(source).toContain('"/api/futures/liquidation/map"');
+    expect(source).toContain('"/api/futures/liquidation/aggregated-map"');
     expect(source).toContain('type:"candleSnapshot"');
     expect(source).toContain('type:"recentTrades",coin:s');
   });
