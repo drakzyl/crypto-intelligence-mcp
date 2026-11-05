@@ -45,6 +45,12 @@ describe("security baseline", () => {
     expect(source).not.toContain('body.slice(0, 300)');
     expect(source).toContain('"The provider request could not be completed."');
   });
+  it("uses CoinGlass API v4 header auth and the Hobbyist-compatible 4h liquidation history endpoint", () => {
+    expect(source).toContain('"CG-API-KEY":token');
+    expect(source).toContain('"/api/futures/liquidation/history"');
+    expect(source).toContain('const interval="4h"');
+    expect(source).toContain("PLAN_ENTITLEMENT_REQUIRED");
+  });
   it("emits redacted structured audit events", () => {
     expect(source).toContain('audit("authentication_failed"');
     expect(source).toContain('audit("tool_completed"');
