@@ -54,6 +54,8 @@ describe("security baseline", () => {
     expect(source).toContain("const lookbackHours=Math.min(720,Math.max(4,Number(params.lookback_hours||24)))");
     expect(source).toContain('binance:"Binance",bybit:"Bybit",okx:"OKX",hyperliquid:"Hyperliquid"');
     expect(source).toContain("start_time:startTime,end_time:endTime");
+    expect(source).toContain('type:"candleSnapshot"');
+    expect(source).toContain('type:"recentTrades",coin:s');
   });
   it("emits redacted structured audit events", () => {
     expect(source).toContain('audit("authentication_failed"');
