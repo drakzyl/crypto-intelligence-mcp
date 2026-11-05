@@ -14,9 +14,9 @@ This package registers **35 tools**. The requested 10 chart views are composed f
 | 4 | `coinbase_premium` | Coinbase/Binance spot comparison |
 | 5 | `funding_rates` | Binance, Bybit, OKX, Hyperliquid |
 | 6 | `open_interest` | Binance, Bybit, OKX, Hyperliquid |
-| 7 | `liquidation_heatmap` | CoinGlass adapter gated; unavailable until verified |
+| 7 | `liquidation_heatmap` | CoinGlass adapter; advanced endpoint availability depends on verified endpoint contracts and account entitlement |
 | 8 | `liquidations` | Binance force-order endpoint; other venue limits explicit |
-| 9 | `liquidation_map` | CoinGlass adapter gated; unavailable until verified |
+| 9 | `liquidation_map` | CoinGlass adapter; advanced endpoint availability depends on verified endpoint contracts and account entitlement |
 | 10 | `liquidation_history_heatmap` | CoinGlass adapter gated; unavailable until verified |
 | 11 | `top_trader_long_short` | Binance/Bybit public ratio endpoints |
 | 12 | `taker_buy_sell_ratio` | Binance Futures |
