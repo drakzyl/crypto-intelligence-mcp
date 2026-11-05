@@ -2,22 +2,21 @@
 
 Build package prepared: 2026-11-05
 
-## Completed checks
+## Verified before the latest CoinGlass adapter change
 
-- TypeScript syntax parser: passed (zero parse diagnostics).
-- Isolated TypeScript structural check with temporary ambient declarations: passed. This is not a full dependency-aware typecheck.
-- Static contract inventory: passed — 35 unique MCP tools, 10 unique chart series, and all five configured exchanges.
-- Static security assertions: passed — separate pre-auth/auth limiter bindings, bearer-token minimum and comparison, body cap, symbol validation, upstream error redaction, and structured audit events.
-- Wrangler TOML syntax: passed with Python `tomllib`; production and staging each define two rate-limit bindings with four distinct sample namespace IDs.
+- Dependency installation completed in Cloudflare CI.
+- `npm run typecheck` passed.
+- `npm test` passed: 8/8 tests.
+- `npm audit --audit-level=high` reported zero vulnerabilities.
+- CI deployment command succeeded but deployed to the wrong Worker name because the build trigger overrode the Wrangler staging name. This was an isolation failure; do not treat that deployment as a valid staging release.
 
-## Checks not completed
+## Latest source change — not yet build-verified
 
-- `npm install` did not finish in the build environment (timed out); no `package-lock.json` or installed dependencies were produced.
-- `npm test` and the project-native `npm run typecheck` were not run because dependencies and Cloudflare type definitions were unavailable.
-- `npm audit` was not run successfully because there is no lockfile; it requires dependency installation/lockfile generation.
-- `wrangler deploy --dry-run` was not run because Wrangler was not installed.
-- No Cloudflare account was accessed and nothing was deployed.
+- Added CoinGlass API v4 authentication using the `CG-API-KEY` header.
+- Implemented historical pair-liquidation data via `/api/futures/liquidation/history` at 4h granularity, matching the documented Hobbyist plan minimum.
+- Kept price-level liquidation maps explicitly unavailable because CoinGlass documents those endpoints as Professional/Enterprise-only.
+- Added contract tests for CoinGlass header authentication, endpoint selection, 4h granularity and plan-entitlement gating.
 
 ## Release status
 
-Source package is prepared for a controlled staging deployment, but it is **not yet independently build-verified or production-certified**. On a machine with npm registry access, run the commands in `DEPLOYMENT-CHECKLIST.md` and resolve any dependency/type/build findings before deploying.
+**Not production-ready.** The latest source change still needs a fresh typecheck and test run. Do not trigger the existing Cloudflare build pipeline until its deployment target is corrected: the prior trigger overrode the configured staging Worker name and deployed staging configuration to the existing production-named Worker. The replacement CoinGlass key must be rotated and stored privately as the `COINGLASS_API_KEY` secret on the staging Worker before API validation. Never commit or paste the key into source, GitHub, build variables or chat.
