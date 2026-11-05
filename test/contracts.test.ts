@@ -50,6 +50,10 @@ describe("security baseline", () => {
     expect(source).toContain('"/api/futures/liquidation/history"');
     expect(source).toContain('const interval="4h"');
     expect(source).toContain("PLAN_ENTITLEMENT_REQUIRED");
+    expect(source).toContain("lookback_hours:z.number().int().min(4).max(720).default(24)");
+    expect(source).toContain("const lookbackHours=Math.min(720,Math.max(4,Number(params.lookback_hours||24)))");
+    expect(source).toContain('binance:"Binance",bybit:"Bybit",okx:"OKX",hyperliquid:"Hyperliquid"');
+    expect(source).toContain("start_time:startTime,end_time:endTime");
   });
   it("emits redacted structured audit events", () => {
     expect(source).toContain('audit("authentication_failed"');
