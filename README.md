@@ -8,8 +8,8 @@ This package registers **35 tools**. The requested 10 chart views are composed f
 
 | # | Tool | Coverage |
 |---:|---|---|
-| 1 | `market_snapshot` | Live tickers + OHLCV for Binance, Coinbase, Bybit, OKX, Hyperliquid |
-| 2 | `cvd` | Recent-trade-derived CVD where venue feed is implemented |
+| 1 | `market_snapshot` | Live tickers + OHLCV for Binance, Coinbase, Bybit, OKX and Hyperliquid (venue-specific interval support) |
+| 2 | `cvd` | Recent-trade-derived CVD for Binance, Coinbase, Bybit, OKX and Hyperliquid; venue side semantics disclosed |
 | 3 | `orderbook_depth` | Live L2 depth and imbalance, five venues |
 | 4 | `coinbase_premium` | Coinbase/Binance spot comparison |
 | 5 | `funding_rates` | Binance, Bybit, OKX, Hyperliquid |
@@ -17,7 +17,7 @@ This package registers **35 tools**. The requested 10 chart views are composed f
 | 7 | `liquidation_heatmap` | CoinGlass adapter; advanced endpoint availability depends on verified endpoint contracts and account entitlement |
 | 8 | `liquidations` | Binance force-order endpoint; other venue limits explicit |
 | 9 | `liquidation_map` | CoinGlass adapter; advanced endpoint availability depends on verified endpoint contracts and account entitlement |
-| 10 | `liquidation_history_heatmap` | CoinGlass adapter gated; unavailable until verified |
+| 10 | `liquidation_history_heatmap` | Historical pair-liquidation series; provider entitlement and request parameters validated at runtime |
 | 11 | `top_trader_long_short` | Binance/Bybit public ratio endpoints |
 | 12 | `taker_buy_sell_ratio` | Binance Futures |
 | 13 | `volume_profile_vpvr` | OHLCV typical-price approximation, clearly labeled (not trade-level VPVR) |
@@ -28,7 +28,7 @@ This package registers **35 tools**. The requested 10 chart views are composed f
 | 18 | `premium_by_exchange` | Coinbase/Bybit/OKX versus Binance, quote-basis caveat |
 | 19 | `long_short_ratio_history` | Binance Futures |
 | 20 | `top_trader_history` | Binance Futures |
-| 21 | `cumulative_liquidation_map` | CoinGlass adapter gated; unavailable until verified |
+| 21 | `cumulative_liquidation_map` | Cumulative price-level map; requires the matching CoinGlass endpoint entitlement and adapter |
 | 22 | `stablecoin_supply_ratio` | CryptoQuant/Glassnode adapter gated; unavailable until verified |
 | 23 | `exchange_netflow` | CryptoQuant/Glassnode adapter gated; unavailable until verified |
 | 24 | `etf_flows` | Farside API contract unverified; unavailable until verified |
@@ -75,7 +75,7 @@ npx wrangler deploy --env staging
 npx wrangler deploy
 ```
 
-Optional data-provider secrets (only if you hold valid entitlements):
+Optional data-provider secrets (configure only for the corresponding verified adapters and entitlements):
 
 ```bash
 npx wrangler secret put COINGLASS_API_KEY
