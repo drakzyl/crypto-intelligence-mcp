@@ -45,11 +45,11 @@ describe("security baseline", () => {
     expect(source).not.toContain('body.slice(0, 300)');
     expect(source).toContain('"The provider request could not be completed."');
   });
-  it("uses CoinGlass API v4 header auth and the Hobbyist-compatible 4h liquidation history endpoint", () => {
+  it("uses CoinGlass API v4 header auth and keeps provider entitlement checks runtime-scoped", () => {
     expect(source).toContain('"CG-API-KEY":token');
     expect(source).toContain('"/api/futures/liquidation/history"');
     expect(source).toContain('const interval="4h"');
-    expect(source).toContain("PLAN_ENTITLEMENT_REQUIRED");
+    expect(source).toContain("PROVIDER_CAPABILITY_UNAVAILABLE");
     expect(source).toContain("lookback_hours:z.number().int().min(4).max(720).default(24)");
     expect(source).toContain("const lookbackHours=Math.min(720,Math.max(4,Number(params.lookback_hours||24)))");
     expect(source).toContain('binance:"Binance",bybit:"Bybit",okx:"OKX",hyperliquid:"Hyperliquid"');
