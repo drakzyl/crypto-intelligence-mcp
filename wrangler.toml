@@ -31,14 +31,14 @@ vars = { APP_ENV = "staging", MCP_ROUTE = "/mcp" }
 
 [[env.staging.ratelimits]]
 name = "PREAUTH_RATE_LIMITER"
-namespace_id = "781346203"
+namespace_id = "781346205"
 [env.staging.ratelimits.simple]
 limit = 120
 period = 60
 
 [[env.staging.ratelimits]]
 name = "AUTH_RATE_LIMITER"
-namespace_id = "781346204"
+namespace_id = "781346206"
 [env.staging.ratelimits.simple]
 limit = 300
 period = 60
